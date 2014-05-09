@@ -15,17 +15,26 @@ Calculate date recurrence
 
     npm run watch
 
+## Options
+
+- units (Number)
+- measure ('weeks', 'months', 'years')
+- start (Date)
+- from (Date)
+
 ## Examples
 
 ```coffee-script
-Recur = require 'simple-recur'
 
-recur = new Recur
-recur.every 2, 'month'
+    Recur = require 'simple-recur'
 
-recur.next 3
-// outputs: [moment, moment, moment]
+    recur = new Recur
+    recur.every 2, 'month'
 
-recur.matches new Date
-// outputs a boolean
+    recur.next 3
+    # outputs: [moment, moment, moment]
+
+    recur.matches new Date
+    # outputs a boolean
+
 ```
