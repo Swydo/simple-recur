@@ -8,7 +8,7 @@ describe "Scheduling Recur", ->
     @format = 'YYYY-MM-DD'
     @date = new Date 3000, 0, 1
 
-    Recur = require '../recur'
+    Recur = require '../simple-recur'
     @recur = new Recur
 
   describe 'defaults', ->
