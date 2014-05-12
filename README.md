@@ -3,6 +3,8 @@ simple-recur
 
 Calculate date recurrence
 
+![Build status](https://api.travis-ci.org/jamiter/simple-recur.png)
+
 ## Test
 
     npm test
