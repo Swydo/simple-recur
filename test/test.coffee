@@ -194,6 +194,17 @@ describe "Scheduling Recur", ->
       expect @recur.matches('3000-02-01'), '1st of Februari'
       .to.equal false
 
+  describe '#getFromDateCorrection', ->
+    it 'should add calculate the correction', ->
+      @recur.set
+        start: moment().format('YYYY-MM-DD')
+        measure: 'day'
+        units: 1
+        from: moment().add(2,'days')
+
+      expect @recur.getFromDateCorrection()
+      .to.equal 2
+
   describe '#clone', ->
     it 'should have the same values as the original', ->
       @recur.set

@@ -1,6 +1,6 @@
 {
   "name": "simple-recur",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Calculate date recurrence",
   "main": "simple-recur.js",
   "scripts": {
