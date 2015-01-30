@@ -5,6 +5,7 @@
   "main": "simple-recur.js",
   "scripts": {
     "build": "node_modules/.bin/coffee -c simple-recur.coffee",
+    "prepublish": "npm run build",
     "watch": "node_modules/.bin/coffee -w -c simple-recur.coffee",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register -R spec"
   },
