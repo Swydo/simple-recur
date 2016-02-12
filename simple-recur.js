@@ -149,6 +149,10 @@
 
   })();
 
-  module.exports = Recur;
+  if ((typeof module !== "undefined" && module !== null ? module.exports : void 0) != null) {
+    module.exports = Recur;
+  } else {
+    this.Recur = Recur;
+  }
 
 }).call(this);
