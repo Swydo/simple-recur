@@ -90,4 +90,7 @@ class Recur
 
     json
 
-module.exports = Recur
+if module?.exports?
+  module.exports = Recur
+else
+  @Recur = Recur
