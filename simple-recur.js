@@ -83,7 +83,7 @@
       }
       start = moment(this.start).startOf('day');
       from = moment(this.from).startOf('day');
-      return Math.ceil(from.diff(start, this.measure, true) / this.units);
+      return Math.ceil(Math.abs(start.diff(from, this.measure, true)) / this.units);
     };
 
     Recur.prototype.matches = function(date) {
@@ -96,11 +96,11 @@
       }
       date = moment(date).startOf('day');
       start = moment(this.start).startOf('day');
-      diff = date.diff(start, this.measure, true);
+      diff = start.diff(date, this.measure, true);
       if (diff % this.units === 0) {
         return true;
       }
-      return Math.ceil(diff) % this.units === 0 && this.isRecurringOnLastDayOfMonth(date);
+      return Math.floor(diff) % this.units === 0 && this.isRecurringOnLastDayOfMonth(date);
     };
 
     Recur.prototype.isBeforeFromDate = function(date) {
