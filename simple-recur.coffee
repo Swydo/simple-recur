@@ -45,7 +45,7 @@ class Recur
     start = moment(@start).startOf 'day'
     from = moment(@from).startOf 'day'
 
-    Math.ceil from.diff(start, @measure, true) / @units
+    Math.ceil Math.abs(start.diff(from, @measure, true)) / @units
 
   matches: (date) ->
     return false if @isBeforeFromDate date
@@ -53,11 +53,11 @@ class Recur
 
     date = moment(date).startOf 'day'
     start = moment(@start).startOf 'day'
-    diff = date.diff start, @measure, true
+    diff = start.diff date, @measure, true
 
     return true if diff % @units is 0
 
-    Math.ceil(diff) % @units is 0 and
+    Math.floor(diff) % @units is 0 and
       @isRecurringOnLastDayOfMonth date
 
   isBeforeFromDate: (date) ->

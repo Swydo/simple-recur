@@ -117,6 +117,16 @@ describe "Scheduling Recur", ->
       .to.equal '3000-04-15'
 
     describe 'with from date', ->
+      it 'should be able to suspend a single month', ->
+        @recur.set
+          measure: 'month'
+          units: 1
+          start: '3000-11-30'
+          from: '3000-12-31'
+
+        expect @recur.nextAt(0).format @format
+        .to.equal '3001-01-30'
+
       it 'should be able to suspend months', ->
         @recur.set
           measure: 'month'
@@ -192,6 +202,16 @@ describe "Scheduling Recur", ->
         from: '3000-03-01'
 
       expect @recur.matches('3000-02-01'), '1st of Februari'
+      .to.equal false
+
+    it 'should not always match last day of month', ->
+      @recur.set
+        measure: 'month'
+        units: 1
+        start: '3000-11-30'
+        from: '3001-11-30'
+
+      expect @recur.matches('3001-12-31'), "match 3001-12-31"
       .to.equal false
 
   describe '#getFromDateCorrection', ->
