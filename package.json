@@ -24,12 +24,13 @@
     "url": "https://github.com/jamiter/simple-recur/issues"
   },
   "homepage": "https://github.com/jamiter/simple-recur",
-  "dependencies": {
-    "moment": "^2.6.0"
+  "peerDependencies": {
+    "moment": "2.x"
   },
   "devDependencies": {
     "chai": "^1.9.1",
     "coffee-script": "^1.7.1",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "moment": "^2.6.0"
   }
 }
