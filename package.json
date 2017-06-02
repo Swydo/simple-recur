@@ -1,11 +1,11 @@
 {
   "name": "simple-recur",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Calculate date recurrence",
   "main": "simple-recur.js",
   "scripts": {
     "build": "node_modules/.bin/coffee -c simple-recur.coffee",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && npm run test",
     "watch": "node_modules/.bin/coffee -w -c simple-recur.coffee",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register -R spec"
   },
