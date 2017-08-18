@@ -66,6 +66,13 @@ class Recur
   isBeforeStartDate: (date) ->
     moment(@start).startOf('day').isAfter date
 
+  isAfterEndDate: (date) ->
+    if not @end
+      return false
+
+    endOfEndDay = moment(@end).endOf('day')
+    moment(date).isAfter(endOfEndDay)
+
   isRecurringOnLastDayOfMonth: (date) ->
     return false if @measure isnt 'month'
 
