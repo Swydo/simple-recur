@@ -35,8 +35,10 @@ class Recur
   nextAt: (count = 1) ->
     correction = @getFromDateCorrection()
 
-    moment(@start).startOf 'day'
+    next = moment(@start).startOf 'day'
     .add (count+correction) * @units, @measure
+
+    if @isAfterEndDate(next) then null else next
 
   getFromDateCorrection: ->
     return 0 if not @from
