@@ -52,6 +52,7 @@ class Recur
   matches: (date) ->
     return false if @isBeforeFromDate date
     return false if @isBeforeStartDate date
+    return false if @isAfterEndDate date
 
     date = moment(date).startOf 'day'
     start = moment(@start).startOf 'day'

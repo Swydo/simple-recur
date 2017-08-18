@@ -233,6 +233,36 @@ describe "Scheduling Recur", ->
       expect @recur.matches('3000-02-01'), '1st of Februari'
       .to.equal false
 
+    it 'should match a date which is before the end date', ->
+      @recur.set
+        measure: 'month'
+        unit: 1
+        start: '3000-02-01'
+        end: '3000-04-01'
+      
+      expect @recur.matches('3000-03-01')
+      .to.equal true
+
+    it 'should match a date which is on the end date', ->
+      @recur.set
+        measure: 'month'
+        unit: 1
+        start: '3000-02-01'
+        end: '3000-04-01'
+      
+      expect @recur.matches('3000-04-01')
+      .to.equal true
+
+    it 'should not match a date which is after the end date', ->
+      @recur.set
+        measure: 'month'
+        unit: 1
+        start: '3000-02-01'
+        end: '3000-04-01'
+      
+      expect @recur.matches('3000-05-01')
+      .to.equal false
+      
     it 'should not always match last day of month', ->
       @recur.set
         measure: 'month'
