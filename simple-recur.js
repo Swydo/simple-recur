@@ -65,12 +65,17 @@
     };
 
     Recur.prototype.nextAt = function(count) {
-      var correction;
+      var correction, next;
       if (count == null) {
         count = 1;
       }
       correction = this.getFromDateCorrection();
-      return moment(this.start).startOf('day').add((count + correction) * this.units, this.measure);
+      next = moment(this.start).startOf('day').add((count + correction) * this.units, this.measure);
+      if (this.isAfterEndDate(next)) {
+        return null;
+      } else {
+        return next;
+      }
     };
 
     Recur.prototype.getFromDateCorrection = function() {
@@ -94,6 +99,9 @@
       if (this.isBeforeStartDate(date)) {
         return false;
       }
+      if (this.isAfterEndDate(date)) {
+        return false;
+      }
       date = moment(date).startOf('day');
       start = moment(this.start).startOf('day');
       diff = start.diff(date, this.measure, true);
@@ -109,6 +117,15 @@
 
     Recur.prototype.isBeforeStartDate = function(date) {
       return moment(this.start).startOf('day').isAfter(date);
+    };
+
+    Recur.prototype.isAfterEndDate = function(date) {
+      var endOfEndDay;
+      if (!this.end) {
+        return false;
+      }
+      endOfEndDay = moment(this.end).endOf('day');
+      return moment(date).isAfter(endOfEndDay);
     };
 
     Recur.prototype.isRecurringOnLastDayOfMonth = function(date) {
