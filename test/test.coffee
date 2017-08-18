@@ -147,6 +147,35 @@ describe "Scheduling Recur", ->
         expect @recur.nextAt(0).format @format
         .to.equal '3000-02-15'
 
+    describe 'with end date', ->
+      it 'should return the next date when before the end date', ->
+        @recur.set
+          measure: 'week'
+          units: 1,
+          end: moment().add(2, 'week')
+        next = @recur.nextAt().format(@format)
+
+        expectedNext = moment().add(1, 'week').format(@format);
+        expect(next).to.equal(expectedNext);
+
+      it 'should return the next date when on the end date', ->
+        @recur.set
+          measure: 'week'
+          units: 2,
+          end: moment().add(2, 'week')
+        next = @recur.nextAt().format(@format)
+
+        expectedNext = moment().add(2, 'weeks').format(@format);
+        expect(next).to.equal(expectedNext);
+      it 'should return null when the next date would be after the end date', ->
+        @recur.set
+          measure: 'week'
+          units: 3,
+          end: moment().add(2, 'week')
+        nextMoment = @recur.nextAt()
+
+        expect(nextMoment).to.equal(null);
+
   describe '#matches', ->
     it 'should match next month', ->
       @recur.set start: @date
@@ -204,6 +233,36 @@ describe "Scheduling Recur", ->
       expect @recur.matches('3000-02-01'), '1st of Februari'
       .to.equal false
 
+    it 'should match a date which is before the end date', ->
+      @recur.set
+        measure: 'month'
+        unit: 1
+        start: '3000-02-01'
+        end: '3000-04-01'
+      
+      expect @recur.matches('3000-03-01')
+      .to.equal true
+
+    it 'should match a date which is on the end date', ->
+      @recur.set
+        measure: 'month'
+        unit: 1
+        start: '3000-02-01'
+        end: '3000-04-01'
+      
+      expect @recur.matches('3000-04-01')
+      .to.equal true
+
+    it 'should not match a date which is after the end date', ->
+      @recur.set
+        measure: 'month'
+        unit: 1
+        start: '3000-02-01'
+        end: '3000-04-01'
+      
+      expect @recur.matches('3000-05-01')
+      .to.equal false
+      
     it 'should not always match last day of month', ->
       @recur.set
         measure: 'month'

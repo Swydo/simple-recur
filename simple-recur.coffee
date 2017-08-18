@@ -35,8 +35,10 @@ class Recur
   nextAt: (count = 1) ->
     correction = @getFromDateCorrection()
 
-    moment(@start).startOf 'day'
+    next = moment(@start).startOf 'day'
     .add (count+correction) * @units, @measure
+
+    if @isAfterEndDate(next) then null else next
 
   getFromDateCorrection: ->
     return 0 if not @from
@@ -50,6 +52,7 @@ class Recur
   matches: (date) ->
     return false if @isBeforeFromDate date
     return false if @isBeforeStartDate date
+    return false if @isAfterEndDate date
 
     date = moment(date).startOf 'day'
     start = moment(@start).startOf 'day'
@@ -65,6 +68,13 @@ class Recur
 
   isBeforeStartDate: (date) ->
     moment(@start).startOf('day').isAfter date
+
+  isAfterEndDate: (date) ->
+    if not @end
+      return false
+
+    endOfEndDay = moment(@end).endOf('day')
+    moment(date).isAfter(endOfEndDay)
 
   isRecurringOnLastDayOfMonth: (date) ->
     return false if @measure isnt 'month'
