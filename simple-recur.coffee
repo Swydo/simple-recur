@@ -1,6 +1,6 @@
-moment = @moment or require 'moment'
+dayjs = @dayjs or require 'dayjs'
 
-DateString = (date) -> moment(date).format 'YYYY-MM-DD'
+DateString = (date) -> dayjs(date).format 'YYYY-MM-DD'
 
 class Recur
 
@@ -23,7 +23,7 @@ class Recur
   setDefaults: ->
     @units ?= 1
     @measure ?= 'month'
-    @start ?= moment()
+    @start ?= dayjs()
 
   next: (begin = 1, end) ->
     if not end
@@ -35,17 +35,17 @@ class Recur
   nextAt: (count = 1) ->
     correction = @getFromDateCorrection()
 
-    next = moment(@start).startOf 'day'
+    next = dayjs(@start).startOf 'day'
     .add (count+correction) * @units, @measure
 
     if @isAfterEndDate(next) then null else next
 
   getFromDateCorrection: ->
     return 0 if not @from
-    return 0 if moment(@from).isBefore @start
+    return 0 if dayjs(@from).isBefore @start
 
-    start = moment(@start).startOf 'day'
-    from = moment(@from).startOf 'day'
+    start = dayjs(@start).startOf 'day'
+    from = dayjs(@from).startOf 'day'
 
     Math.ceil Math.abs(start.diff(from, @measure, true)) / @units
 
@@ -54,8 +54,8 @@ class Recur
     return false if @isBeforeStartDate date
     return false if @isAfterEndDate date
 
-    date = moment(date).startOf 'day'
-    start = moment(@start).startOf 'day'
+    date = dayjs(date).startOf 'day'
+    start = dayjs(@start).startOf 'day'
     diff = start.diff date, @measure, true
 
     return true if diff % @units is 0
@@ -64,26 +64,26 @@ class Recur
       @isRecurringOnLastDayOfMonth date
 
   isBeforeFromDate: (date) ->
-    @from and moment(@from).startOf('day').isAfter date
+    @from and dayjs(@from).startOf('day').isAfter date
 
   isBeforeStartDate: (date) ->
-    moment(@start).startOf('day').isAfter date
+    dayjs(@start).startOf('day').isAfter date
 
   isAfterEndDate: (date) ->
     if not @end
       return false
 
-    endOfEndDay = moment(@end).endOf('day')
-    moment(date).isAfter(endOfEndDay)
+    endOfEndDay = dayjs(@end).endOf('day')
+    dayjs(date).isAfter(endOfEndDay)
 
   isRecurringOnLastDayOfMonth: (date) ->
     return false if @measure isnt 'month'
 
-    recurringMonthDay = moment(@start).date()
-    dateMonthEndDay = moment(date).endOf('month').date()
+    recurringMonthDay = dayjs(@start).date()
+    dateMonthEndDay = dayjs(date).endOf('month').date()
 
     (recurringMonthDay > dateMonthEndDay) and
-      moment(date).date() is dateMonthEndDay
+      dayjs(date).date() is dateMonthEndDay
 
   every: (@units, @measure) ->
     @

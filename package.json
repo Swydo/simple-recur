@@ -16,6 +16,8 @@
   "keywords": [
     "recur",
     "moment",
+    "dayjs",
+    "day",
     "date"
   ],
   "author": "Michiel ter Reehorst",
@@ -25,12 +27,12 @@
   },
   "homepage": "https://github.com/jamiter/simple-recur",
   "peerDependencies": {
-    "moment": "2.x"
+    "dayjs": "*"
   },
   "devDependencies": {
     "chai": "^1.9.1",
     "coffee-script": "^1.7.1",
-    "mocha": "^1.18.2",
-    "moment": "^2.6.0"
+    "dayjs": "^1.8.16",
+    "mocha": "^1.18.2"
   }
 }

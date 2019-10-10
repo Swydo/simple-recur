@@ -1,7 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 
-moment = require 'moment'
+dayjs = require 'dayjs'
 
 describe "Scheduling Recur", ->
   beforeEach ->
@@ -32,8 +32,8 @@ describe "Scheduling Recur", ->
         expect(@recur[attr], attr).to.equal value
 
   describe '#nextAt', ->
-    it 'should return a moment object', ->
-      expect moment.isMoment @recur.nextAt()
+    it 'should return a dayjs object', ->
+      expect dayjs.isDayjs @recur.nextAt()
       .to.equal true
 
     it 'should return the last day the previous month is larger', ->
@@ -89,7 +89,7 @@ describe "Scheduling Recur", ->
       @recur.set
         units: 2
         measure: 'week'
-        start: moment(@date).day(1)
+        start: dayjs(@date).day(1)
 
       next = @recur.nextAt()
 
@@ -108,7 +108,7 @@ describe "Scheduling Recur", ->
       @recur.set
         units: 3
         measure: 'month'
-        start: moment(@date).date(15)
+        start: dayjs(@date).date(15)
 
       expect @recur.nextAt(0).format @format
       .to.equal '3000-01-15'
@@ -152,29 +152,29 @@ describe "Scheduling Recur", ->
         @recur.set
           measure: 'week'
           units: 1,
-          end: moment().add(2, 'week')
+          end: dayjs().add(2, 'week')
         next = @recur.nextAt().format(@format)
 
-        expectedNext = moment().add(1, 'week').format(@format);
+        expectedNext = dayjs().add(1, 'week').format(@format);
         expect(next).to.equal(expectedNext);
 
       it 'should return the next date when on the end date', ->
         @recur.set
           measure: 'week'
           units: 2,
-          end: moment().add(2, 'week')
+          end: dayjs().add(2, 'week')
         next = @recur.nextAt().format(@format)
 
-        expectedNext = moment().add(2, 'weeks').format(@format);
+        expectedNext = dayjs().add(2, 'weeks').format(@format);
         expect(next).to.equal(expectedNext);
       it 'should return null when the next date would be after the end date', ->
         @recur.set
           measure: 'week'
           units: 3,
-          end: moment().add(2, 'week')
-        nextMoment = @recur.nextAt()
+          end: dayjs().add(2, 'week')
+        nextdayjs = @recur.nextAt()
 
-        expect(nextMoment).to.equal(null);
+        expect(nextdayjs).to.equal(null);
 
   describe '#matches', ->
     it 'should match next month', ->
@@ -195,7 +195,7 @@ describe "Scheduling Recur", ->
         measure: 'week'
         unit: 2
 
-      after2weeks = moment(@date).add 2, 'weeks'
+      after2weeks = dayjs(@date).add 2, 'weeks'
       expect @recur.matches(after2weeks)
       .to.equal true
 
@@ -276,10 +276,10 @@ describe "Scheduling Recur", ->
   describe '#getFromDateCorrection', ->
     it 'should add calculate the correction', ->
       @recur.set
-        start: moment().format('YYYY-MM-DD')
+        start: dayjs().format('YYYY-MM-DD')
         measure: 'day'
         units: 1
-        from: moment().add(2,'days')
+        from: dayjs().add(2,'days')
 
       expect @recur.getFromDateCorrection()
       .to.equal 2
