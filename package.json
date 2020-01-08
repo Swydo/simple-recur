@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jamiter/simple-recur.git"
+    "url": "https://github.com/swydo/simple-recur.git"
   },
   "keywords": [
     "recur",
@@ -21,9 +21,9 @@
   "author": "Michiel ter Reehorst",
   "license": "UNLICENSE",
   "bugs": {
-    "url": "https://github.com/jamiter/simple-recur/issues"
+    "url": "https://github.com/swydo/simple-recur/issues"
   },
-  "homepage": "https://github.com/jamiter/simple-recur",
+  "homepage": "https://github.com/swydo/simple-recur",
   "peerDependencies": {
     "moment": "2.x"
   },
