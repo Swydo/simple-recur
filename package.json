@@ -28,7 +28,7 @@
     "moment": "2.x"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
+    "chai": "^4.2.0",
     "coffee-script": "^1.7.1",
     "mocha": "^1.18.2",
     "moment": "^2.6.0"
